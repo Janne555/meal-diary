@@ -1,0 +1,28 @@
+version: '3'
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VARIANT: 12
+  
+    volumes:
+      - ..:/workspace:cached
+      - backend_node_modules:/workspace/node_modules
+
+    command: sleep infinity
+
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - /data/db
+ 
+volumes:
+  backend_node_modules:
+
+networks:
+  default:
+    external:
+      name: meal-diary

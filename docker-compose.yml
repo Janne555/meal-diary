@@ -1,0 +1,33 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: ./meal-diary-backend
+      dockerfile: .devcontainer/Dockerfile
+
+    volumes:
+      - ./meal-diary-backend:/workspace:cached
+      - backend_node_modules:/workspace/node_modules
+
+    command: sleep infinity
+
+  frontend:
+    build:
+      context: ./meal-diary-frontend
+      dockerfile: .devcontainer/Dockerfile
+
+    volumes:
+      - ./meal-diary-frontend:/workspace:cached
+      - client_node_modules:/workspace/node_modules
+
+    command: sleep infinity
+
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - /data/db
+
+volumes:
+  backend_node_modules:
+  client_node_modules:

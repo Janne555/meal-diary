@@ -1,0 +1,13 @@
+{
+	"name": "meal-diary-frontend",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "frontend",
+	"workspaceFolder": "/workspace",
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"ms-vscode.vscode-typescript-tslint-plugin"
+	]
+}

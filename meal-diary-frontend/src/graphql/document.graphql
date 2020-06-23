@@ -1,0 +1,25 @@
+query getFoodNames {
+  foods {
+    id
+    name {
+      fi
+      en
+    }
+  }
+}
+
+query getFood($id: ID!) {
+  food(id: $id) {
+    id
+    name {
+      fi
+      en
+    }
+    enerc
+    fat
+    prot
+    sugar
+    fibc
+    nacl
+  }
+}

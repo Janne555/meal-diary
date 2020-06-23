@@ -1,0 +1,21 @@
+.nutritional-component {
+  display: flex;
+  margin: 1em;
+  padding: 0.5em;
+  > div {
+    display: flex;
+    align-items: center;
+    height: auto;
+
+    > p,
+    > h1,
+    > img {
+      margin: 0 1em 0 0;
+    }
+
+    > img {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}
