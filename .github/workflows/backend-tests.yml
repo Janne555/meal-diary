@@ -1,0 +1,46 @@
+name: Backend Tests
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'meal-diary-backend/*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Start mongo
+      run: docker-compose up -d
+    - name: Build image
+      run: docker build . -t meal-diary/backend
+    - name: Run tests
+      env:
+        AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID}}
+        AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN}}
+        AUTH0_CLIENT_SECRET: ${{secrets.AUTH0_CLIENT_SECRET}}
+        AUTH0_USER_AUDIENCE: ${{secrets.AUTH0_USER_AUDIENCE}}
+        AUTH0_AUDIENCE: ${{secrets.AUTH0_AUDIENCE}}
+        AUTH0_TEST_TOKEN_URL: ${{secrets.AUTH0_TEST_TOKEN_URL}}
+        AUTH0_TEST_CLIENT_ID: ${{secrets.AUTH0_TEST_CLIENT_ID}}
+        AUTH0_TEST_CLIENT_SECRET: ${{secrets.AUTH0_TEST_CLIENT_SECRET}}
+        AUTH0_TEST_AUDIENCE: ${{secrets.AUTH0_TEST_AUDIENCE}}
+        AUTH0_TEST_GRANT_TYPE: ${{secrets.AUTH0_TEST_GRANT_TYPE}}
+      run: docker run 
+        --network container:ci_mongo 
+        -e AUTH0_CLIENT_ID="${AUTH0_CLIENT_ID}"
+        -e AUTH0_DOMAIN="${AUTH0_DOMAIN}"
+        -e AUTH0_CLIENT_SECRET="${AUTH0_CLIENT_SECRET}"
+        -e AUTH0_USER_AUDIENCE="${AUTH0_USER_AUDIENCE}"
+        -e AUTH0_AUDIENCE="${AUTH0_AUDIENCE}"
+        -e MONGO_URI=mongodb://localhost:27017
+        -e APP_NAME=test
+        -e RUN_FINELI_TASK_ON_START=false
+        -e AUTH0_TEST_TOKEN_URL="${AUTH0_TEST_TOKEN_URL}"
+        -e AUTH0_TEST_CLIENT_ID="${AUTH0_TEST_CLIENT_ID}"
+        -e AUTH0_TEST_CLIENT_SECRET="${AUTH0_TEST_CLIENT_SECRET}"
+        -e AUTH0_TEST_AUDIENCE="${AUTH0_TEST_AUDIENCE}"
+        -e AUTH0_TEST_GRANT_TYPE="${AUTH0_TEST_GRANT_TYPE}"
+        meal-diary/backend 
+        npm run test:ci
