@@ -50,5 +50,6 @@ jobs:
           -e AUTH0_TEST_CLIENT_SECRET="${AUTH0_TEST_CLIENT_SECRET}"
           -e AUTH0_TEST_AUDIENCE="${AUTH0_TEST_AUDIENCE}"
           -e AUTH0_TEST_GRANT_TYPE="${AUTH0_TEST_GRANT_TYPE}"
+          -e PORT=4000
           ci/backend npm run test:ci
         working-directory: meal-diary-backend
