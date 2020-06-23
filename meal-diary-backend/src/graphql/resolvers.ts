@@ -13,11 +13,10 @@ const resolvers: Pick<Resolvers<Context>, 'Mutation' | 'Query'> = {
     },
     foods: async (_, { params }, { foodDataSource }) => {
       if (foodDataSource) {
-
+        return foodDataSource.getFoods(params ?? {})
       } else {
         throw new UnauthorizedRequest
       }
-      return foodDataSource.getFoods(params ?? {})
     },
     config: (_, __, { configDataSource }) => {
       if (configDataSource) {
@@ -28,11 +27,10 @@ const resolvers: Pick<Resolvers<Context>, 'Mutation' | 'Query'> = {
     },
     food: (_, { id }, { foodDataSource }) => {
       if (foodDataSource) {
-
+        return foodDataSource.getFood(id)
       } else {
         throw new UnauthorizedRequest
       }
-      return foodDataSource.getFood(id)
     }
   },
   Mutation: {

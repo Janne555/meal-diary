@@ -17,14 +17,14 @@ afterAll(async () => {
   await Promise.all(mongoose.connections.map(conn => conn.close()))
 })
 
+var ds
+
 describe('smoke test', () => {
   beforeEach(async () => {
-    const ds = new FoodDataSource({ sub: "Fineli" })
+    ds = new FoodDataSource({ sub: "Fineli" })
     await ds.addFood({
       name: { fi: "munkki", en: "donut" }
     })
-
-    console.log(await ds.getFoods())
   })
 
   afterEach(async () => {
