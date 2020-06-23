@@ -15,6 +15,9 @@ beforeAll(async () => {
 
   const res = await fetch(`${process.env.AUTH0_TEST_TOKEN_URL}/oauth/token`, { method: 'POST', body: payload, headers: { 'Content-Type': 'application/json' } })
   const body = await res.json()
+  if (!res.ok) {
+    throw Error(`Failed to get token. Status: ${res.status}, ${res.statusText}`)
+  }
   token = body.access_token
 })
 
