@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js --watchAll=true",
     "test:coverage": "npm test -- --watchAll=false --collect-coverage",
-    "test:ci": "npm test -- --watchAll=false --detectOpenHandles",
+    "test:ci": "npm test -- --watchAll=false",
     "start": "nodemon -r dotenv/config ./src/index.ts dotenv_config_path=./dev.env",
     "start:poll": "nodemon -L -r dotenv/config ./src/index.ts dotenv_config_path=./dev.env",
     "start:prod": "tsc && node build/index.js",
