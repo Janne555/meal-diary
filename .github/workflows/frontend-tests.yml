@@ -1,32 +1,31 @@
-name: Backend Compile
+name: Backend Tests
+
 on:
   pull_request:
     branches: ["master"]
     paths:
-      - "meal-diary-backend/**"
+      - "meal-diary-frontend/**"
 
 jobs:
-  compile:
+  unit_tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
     - uses: actions/checkout@v2
     - name: Cache node modules
       uses: actions/cache@v2
       env:
-        cache-name: cache-node-modules-backend
+        cache-name: cache-node-modules-frontend
       with:
         path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('meal-diary-backend/package-lock.json') }}
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('meal-diary-frontend/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     - name: NPM install
       run: npm install
-      working-directory: meal-diary-backend
-    - name: Run GraphQl code-gen
-      run: npm run codegen
-      working-directory: meal-diary-backend
-    - name: Run TypeScript compiler
-      run: tsc
+      working-directory: meal-diary-frontend
+    - name: Run tests
+      run: npm run test:ci
       working-directory: meal-diary-backend

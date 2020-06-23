@@ -17,7 +17,7 @@ jobs:
     - name: Cache node modules
       uses: actions/cache@v2
       env:
-        cache-name: cache-node-modules
+        cache-name: cache-node-modules-backend
       with:
         path: ~/.npm
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('meal-diary-backend/package-lock.json') }}
