@@ -11,27 +11,38 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v2
-      - name: Build docker env
-        run: |
-          docker network create backend-tests
-          docker run --network backend-tests --name mongo -d mongo
-          docker build . -t ci/backend
-      - name: Run tests
-        env:
-          AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID}}
-          AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN}}
-          AUTH0_CLIENT_SECRET: ${{secrets.AUTH0_CLIENT_SECRET}}
-          AUTH0_USER_AUDIENCE: ${{secrets.AUTH0_USER_AUDIENCE}}
-          AUTH0_AUDIENCE: ${{secrets.AUTH0_AUDIENCE}}
-          AUTH0_TEST_TOKEN_URL: ${{secrets.AUTH0_TEST_TOKEN_URL}}
-          AUTH0_TEST_CLIENT_ID: ${{secrets.AUTH0_TEST_CLIENT_ID}}
-          AUTH0_TEST_CLIENT_SECRET: ${{secrets.AUTH0_TEST_CLIENT_SECRET}}
-          AUTH0_TEST_AUDIENCE: ${{secrets.AUTH0_TEST_AUDIENCE}}
-          AUTH0_TEST_GRANT_TYPE: ${{secrets.AUTH0_TEST_GRANT_TYPE}}
-          MONGO_URI: mongodb://localhost:27017/<dbname>
-          APP_NAME: test
-          RUN_FINELI_TASK_ON_START: false
-          PORT: 4000
-        run: docker run --network backend-tests --name backend ci/backend npm run test:ci
-        working-directory: meal-diary-backend
+    - uses: actions/checkout@v2
+    - name: Start MongoDB
+      run: docker run --name mongo -d -p 27017:27017 mongo
+    - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('meal-diary-backend/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - name: NPM install
+      run: npm install
+      working-directory: meal-diary-backend
+    - name: Run tests
+      env:
+        AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID}}
+        AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN}}
+        AUTH0_CLIENT_SECRET: ${{secrets.AUTH0_CLIENT_SECRET}}
+        AUTH0_USER_AUDIENCE: ${{secrets.AUTH0_USER_AUDIENCE}}
+        AUTH0_AUDIENCE: ${{secrets.AUTH0_AUDIENCE}}
+        AUTH0_TEST_TOKEN_URL: ${{secrets.AUTH0_TEST_TOKEN_URL}}
+        AUTH0_TEST_CLIENT_ID: ${{secrets.AUTH0_TEST_CLIENT_ID}}
+        AUTH0_TEST_CLIENT_SECRET: ${{secrets.AUTH0_TEST_CLIENT_SECRET}}
+        AUTH0_TEST_AUDIENCE: ${{secrets.AUTH0_TEST_AUDIENCE}}
+        AUTH0_TEST_GRANT_TYPE: ${{secrets.AUTH0_TEST_GRANT_TYPE}}
+        MONGO_URI: mongodb://localhost:27017/<dbname>
+        APP_NAME: test
+        RUN_FINELI_TASK_ON_START: false
+        PORT: 4000
+      run: npm run test:ci
+      working-directory: meal-diary-backend

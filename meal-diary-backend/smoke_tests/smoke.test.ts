@@ -6,24 +6,25 @@ import { FoodDataSource } from '../src/datasources'
 import { token } from '../setupTests'
 
 beforeAll(async () => {
-  mongoose.set('useNewUrlParser', true);
-  mongoose.set('useFindAndModify', false);
-  mongoose.set('useCreateIndex', true);
-  mongoose.set('useUnifiedTopology', true);
-
-  await mongoose.connect(`${env.MONGO_URI}/${env.APP_NAME}`)
+  mongoose.set('useNewUrlParser', true)
+  mongoose.set('useFindAndModify', false)
+  mongoose.set('useCreateIndex', true)
+  mongoose.set('useUnifiedTopology', true)
+  await mongoose.connect(`${env.MONGO_URI.replace("<dbname>", env.APP_NAME)}`, { connectTimeoutMS: 500 }, err => err && console.error(err))
 })
 
 afterAll(async () => {
-  await mongoose.connection.close()
+  await Promise.all(mongoose.connections.map(conn => conn.close()))
 })
+
+var ds
 
 describe('smoke test', () => {
   beforeEach(async () => {
-    const ds = new FoodDataSource({ userId: "Fineli" } as any)
+    ds = new FoodDataSource({ sub: "Fineli" })
     await ds.addFood({
       name: { fi: "munkki", en: "donut" }
-    } as any)
+    })
   })
 
   afterEach(async () => {

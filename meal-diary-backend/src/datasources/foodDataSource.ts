@@ -1,66 +1,8 @@
 import { DataSource, MongooseTypes, UserToken } from "../types";
-import { FoodInput, Food, FoodSearchInput, User } from "../types/generated"
+import { FoodInput, Food, FoodSearchInput } from "../types/generated"
 import { FoodModel } from "../mongodb";
 import { QueryFindOneAndUpdateOptions, FilterQuery, UpdateQuery } from "mongoose";
-
-// todo  move these to constants
-const keys = [
-  "enerc",
-  "fat",
-  "choavl",
-  "prot",
-  "alc",
-  "oa",
-  "sugoh",
-  "sugar",
-  "frus",
-  "gals",
-  "glus",
-  "lacs",
-  "mals",
-  "sucs",
-  "starch",
-  "fibc",
-  "fibins",
-  "psacncs",
-  "fol",
-  "niaeq",
-  "nia",
-  "vitpyrid",
-  "ribf",
-  "thia",
-  "vita",
-  "carotens",
-  "vitb12",
-  "vitc",
-  "vitd",
-  "vite",
-  "vitk",
-  "ca",
-  "fe",
-  "iod",
-  "k",
-  "mg",
-  "na",
-  "nacl",
-  "p",
-  "se",
-  "zn",
-  "fafre",
-  "fapu",
-  "famcis",
-  "fasat",
-  "fatrn",
-  "fapun3",
-  "fapun6",
-  "f18d2cn6",
-  "f18d3n3",
-  "f20d5n3",
-  "f22d6n3",
-  "chole",
-  "stert",
-  "trp"
-] as const
+import { foodTypeKeys } from '../constants'
 
 class FoodDataSource implements DataSource.IFoodDataSource {
   private user: UserToken
@@ -82,7 +24,7 @@ class FoodDataSource implements DataSource.IFoodDataSource {
       query.find({ 'name.fi': regex ? new RegExp(value, flags ?? "") : value })
     }
 
-    keys.forEach(key => {
+    foodTypeKeys.forEach(key => {
       const field = params[key]
       if (field) {
         const searchTerms = field.map(({ value, comparisonOperator }) => {
