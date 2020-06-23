@@ -23,6 +23,8 @@ describe('smoke test', () => {
     await ds.addFood({
       name: { fi: "munkki", en: "donut" }
     })
+
+    console.log(await ds.getFoods())
   })
 
   afterEach(async () => {
