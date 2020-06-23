@@ -17,6 +17,7 @@ jobs:
           docker network create backend-tests
           docker run --network backend-tests --name mongo -d mongo
           docker build . -t ci/backend
+        working-directory: meal-diary-backend
       - name: Run tests
         env:
           AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID}}
