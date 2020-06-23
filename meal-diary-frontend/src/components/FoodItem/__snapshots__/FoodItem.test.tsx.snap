@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FoodItem /> should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="food-item"
+  >
+    <h1
+      class="MuiTypography-root MuiTypography-h1"
+    >
+      ruokanimi
+    </h1>
+    <div>
+      <div
+        class="MuiPaper-root MuiCard-root nutritional-component MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div>
+          <img
+            src="images/fuel.svg"
+          />
+          <h1
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            id
+          </h1>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            foo
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiCard-root nutritional-component MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div>
+          <img
+            src="images/fuel.svg"
+          />
+          <h1
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            enerc
+          </h1>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            null
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiCard-root nutritional-component MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div>
+          <img
+            src="images/fuel.svg"
+          />
+          <h1
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            fat
+          </h1>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            null
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiCard-root nutritional-component MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div>
+          <img
+            src="images/fuel.svg"
+          />
+          <h1
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            prot
+          </h1>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            null
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiCard-root nutritional-component MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div>
+          <img
+            src="images/fuel.svg"
+          />
+          <h1
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            sugar
+          </h1>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            null
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiCard-root nutritional-component MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div>
+          <img
+            src="images/fuel.svg"
+          />
+          <h1
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            fibc
+          </h1>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            null
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiPaper-root MuiCard-root nutritional-component MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div>
+          <img
+            src="images/fuel.svg"
+          />
+          <h1
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            nacl
+          </h1>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            null
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
