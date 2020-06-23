@@ -30,5 +30,8 @@ jobs:
         AUTH0_TEST_CLIENT_SECRET: ${{secrets.AUTH0_TEST_CLIENT_SECRET}}
         AUTH0_TEST_AUDIENCE: ${{secrets.AUTH0_TEST_AUDIENCE}}
         AUTH0_TEST_GRANT_TYPE: ${{secrets.AUTH0_TEST_GRANT_TYPE}}
+        MONGO_URI: mongodb://localhost:27017/<dbname>
+        APP_NAME: test
+        RUN_FINELI_TASK_ON_START: false
       run: npm run test:ci
       working-directory: meal-diary-backend
