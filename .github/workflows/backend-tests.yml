@@ -2,8 +2,7 @@ name: Backend Tests
 
 on:
   pull_request:
-    paths:
-      - 'meal-diary-backend/*'
+    branches: ["master"]
 
 jobs:
   test:
