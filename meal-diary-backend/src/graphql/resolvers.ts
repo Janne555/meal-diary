@@ -14,12 +14,12 @@ const resolvers: Pick<Resolvers<Context>, 'Mutation' | 'Query'> = {
       }
     },
     foods: async (_, { params }, { foodDataSource }) => {
-      core.debug("at foods resolver")
+      console.error("at foods resolver")
       if (foodDataSource) {
-        core.debug("datasource available")
+        console.error("datasource available")
         return foodDataSource.getFoods(params ?? {})
       } else {
-        core.debug("not authorized")
+        console.error("not authorized")
         throw new UnauthorizedRequest
       }
     },

@@ -25,7 +25,7 @@ const graphqlServer = new ApolloServer({
     })()
 
     if (userToken) {
-      core.debug("has token")
+      console.error("has token")
       return {
         userDataSource: new UserDataSource(),
         foodDataSource: new FoodDataSource(userToken),
@@ -33,7 +33,7 @@ const graphqlServer = new ApolloServer({
         userToken
       }
     } else {
-      core.debug("no token")
+      console.error("no token")
       return {}
     }
   },

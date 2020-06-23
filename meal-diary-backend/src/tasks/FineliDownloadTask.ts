@@ -14,7 +14,7 @@ class FineliDownloadTask {
 
   async execute(): Promise<void> {
     if (await this.configDataSource.isFineliDataDownloaded()) {
-      core.debug("skipping fineli download")
+      console.error("skipping fineli download")
       //TODO add logging here
       return
     }

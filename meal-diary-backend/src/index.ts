@@ -14,9 +14,9 @@ mongoose.connect(`${env.MONGO_URI.replace("<dbname>", env.APP_NAME)}`)
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-  core.debug("mongodb connection established")
+  console.error("mongodb connection established")
 })
 
 const listener = app.listen(Number(env.PORT), () => {
-  core.debug(`🚀 Server listening at ${JSON.stringify(listener.address())}`)
+  console.error(`🚀 Server listening at ${JSON.stringify(listener.address())}`)
 })
