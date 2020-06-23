@@ -1,0 +1,16 @@
+name: Backend Compile
+on:
+  pull_request:
+    branches: ["master"]
+    paths:
+      - "meal-diary-backend/**"
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run TypeScript compiler
+      run: tsc
+      working-directory: meal-diary-backend
