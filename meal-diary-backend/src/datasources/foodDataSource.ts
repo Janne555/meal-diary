@@ -12,6 +12,7 @@ class FoodDataSource implements DataSource.IFoodDataSource {
   }
 
   async getFoods(params: Partial<FoodSearchInput> = {}): Promise<Food[]> {
+    console.log(this.user.sub.includes("@client"))
     const query = FoodModel.find({ $or: [{ owner: "Fineli" }, { owner: this.user.sub }] })
 
     if (params.name?.en) {
