@@ -10,7 +10,7 @@ beforeAll(async () => {
   mongoose.set('useFindAndModify', false)
   mongoose.set('useCreateIndex', true)
   mongoose.set('useUnifiedTopology', true)
-  mongoose.connect(`${env.MONGO_URI.replace("<dbname>", env.APP_NAME)}`, { connectTimeoutMS: 500 }, err => console.error(err))
+  await mongoose.connect(`${env.MONGO_URI.replace("<dbname>", env.APP_NAME)}`, { connectTimeoutMS: 500 }, err => err && console.error(err))
 })
 
 afterAll(async () => {
