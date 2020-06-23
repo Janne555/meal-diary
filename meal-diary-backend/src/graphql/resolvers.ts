@@ -14,6 +14,7 @@ const resolvers: Pick<Resolvers<Context>, 'Mutation' | 'Query'> = {
       }
     },
     foods: async (_, { params }, { foodDataSource }) => {
+      throw Error("wtf")
       console.error("at foods resolver")
       if (foodDataSource) {
         console.error("datasource available")
