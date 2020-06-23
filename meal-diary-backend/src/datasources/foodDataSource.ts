@@ -3,6 +3,7 @@ import { FoodInput, Food, FoodSearchInput } from "../types/generated"
 import { FoodModel } from "../mongodb";
 import { QueryFindOneAndUpdateOptions, FilterQuery, UpdateQuery } from "mongoose";
 import { foodTypeKeys } from '../constants'
+import core from '@actions/core'
 
 class FoodDataSource implements DataSource.IFoodDataSource {
   private user: UserToken
@@ -12,7 +13,7 @@ class FoodDataSource implements DataSource.IFoodDataSource {
   }
 
   async getFoods(params: Partial<FoodSearchInput> = {}): Promise<Food[]> {
-    console.log("at get foods", this.user.sub.includes("@client"))
+    core.debug("at get foods")
     const query = FoodModel.find({ $or: [{ owner: "Fineli" }, { owner: this.user.sub }] })
 
     if (params.name?.en) {

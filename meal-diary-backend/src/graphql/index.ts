@@ -7,6 +7,8 @@ import typeDefs from './schema';
 import { isToken } from "../utils/typeguards";
 import { UserDataSource, FoodDataSource } from "../datasources";
 import ConfigDataSource from "../datasources/configDataSource";
+import core from '@actions/core'
+
 
 const graphqlServer = new ApolloServer({
   typeDefs: [DIRECTIVES].concat(typeDefs) as any, resolvers: { ...resolvers }, context: ({ req }) => {
@@ -23,7 +25,7 @@ const graphqlServer = new ApolloServer({
     })()
 
     if (userToken) {
-      console.log("has token")
+      core.debug("has token")
       return {
         userDataSource: new UserDataSource(),
         foodDataSource: new FoodDataSource(userToken),
@@ -31,7 +33,7 @@ const graphqlServer = new ApolloServer({
         userToken
       }
     } else {
-      console.log("no token")
+      core.debug("no token")
       return {}
     }
   },

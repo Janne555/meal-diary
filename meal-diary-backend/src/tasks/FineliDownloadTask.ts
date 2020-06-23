@@ -1,5 +1,7 @@
 import { downloadRawFineliData, formatFineliData } from "../services";
 import { DataSource } from "../types";
+import core from '@actions/core'
+
 
 class FineliDownloadTask {
   private foodDataSource: DataSource.IFoodDataSource
@@ -12,7 +14,7 @@ class FineliDownloadTask {
 
   async execute(): Promise<void> {
     if (await this.configDataSource.isFineliDataDownloaded()) {
-      console.log("skipping fineli download")
+      core.debug("skipping fineli download")
       //TODO add logging here
       return
     }
