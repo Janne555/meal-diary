@@ -24,13 +24,13 @@ export type Scalars = {
 
 
 export type FoodName = {
-   __typename?: 'FoodName';
+  __typename?: 'FoodName';
   en: Maybe<Scalars['String']>;
   fi: Maybe<Scalars['String']>;
 };
 
 export type Food = {
-   __typename?: 'Food';
+  __typename?: 'Food';
   id: Scalars['ID'];
   name: FoodName;
   enerc: Maybe<Scalars['Float']>;
@@ -221,7 +221,7 @@ export type FoodNameSearchInput = {
 
 
 export type Config = {
-   __typename?: 'Config';
+  __typename?: 'Config';
   lastFineliUpdate: Maybe<Scalars['Date']>;
 };
 
@@ -242,7 +242,7 @@ export type SearchStringInput = {
 };
 
 export type User = {
-   __typename?: 'User';
+  __typename?: 'User';
   name: Maybe<Scalars['String']>;
   userId: Scalars['String'];
   roles: Maybe<Array<Role>>;
@@ -250,7 +250,7 @@ export type User = {
 };
 
 export type Role = {
-   __typename?: 'Role';
+  __typename?: 'Role';
   id: Maybe<Scalars['String']>;
   name: Maybe<Scalars['String']>;
   description: Maybe<Scalars['String']>;
@@ -258,7 +258,7 @@ export type Role = {
 };
 
 export type Permission = {
-   __typename?: 'Permission';
+  __typename?: 'Permission';
   resourceServerIdentifier: Maybe<Scalars['String']>;
   permissionName: Maybe<Scalars['String']>;
   resourceServerName: Maybe<Scalars['String']>;
@@ -272,7 +272,7 @@ export type MutationResponse = {
 };
 
 export type ConfigMutationResponse = MutationResponse & {
-   __typename?: 'ConfigMutationResponse';
+  __typename?: 'ConfigMutationResponse';
   code: Scalars['String'];
   success: Scalars['Boolean'];
   message: Scalars['String'];
@@ -280,7 +280,7 @@ export type ConfigMutationResponse = MutationResponse & {
 };
 
 export type FoodMutationResponse = MutationResponse & {
-   __typename?: 'FoodMutationResponse';
+  __typename?: 'FoodMutationResponse';
   code: Scalars['String'];
   success: Scalars['Boolean'];
   message: Scalars['String'];
@@ -292,7 +292,7 @@ export type UpdateConfigInput = {
 };
 
 export type Query = {
-   __typename?: 'Query';
+  __typename?: 'Query';
   users: Maybe<Array<User>>;
   foods: Array<Food>;
   food: Maybe<Food>;
@@ -310,7 +310,7 @@ export type QueryFoodArgs = {
 };
 
 export type Mutation = {
-   __typename?: 'Mutation';
+  __typename?: 'Mutation';
   assignRoleToUser: User;
   updateConfig: ConfigMutationResponse;
   addFood: FoodMutationResponse;
@@ -343,11 +343,16 @@ export type ResolversObject<TObject> = WithIndex<TObject>;
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 
-export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
+export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
   fragment: string;
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
 
+export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
+  selectionSet: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
   | ResolverFn<TResult, TParent, TContext, TArgs>
   | StitchingResolver<TResult, TParent, TContext, TArgs>;
@@ -397,7 +402,7 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type isTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
@@ -411,60 +416,59 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  String: ResolverTypeWrapper<Scalars['String']>,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  FoodName: ResolverTypeWrapper<FoodName>,
-  Food: ResolverTypeWrapper<Food>,
-  ID: ResolverTypeWrapper<Scalars['ID']>,
-  Float: ResolverTypeWrapper<Scalars['Float']>,
-  FoodInput: FoodInput,
-  FoodNameInput: FoodNameInput,
-  FoodSearchInput: FoodSearchInput,
-  FoodNameSearchInput: FoodNameSearchInput,
-  Date: ResolverTypeWrapper<Scalars['Date']>,
-  Config: ResolverTypeWrapper<Config>,
-  SearchFloatInput: SearchFloatInput,
-  ComparisonOperator: ComparisonOperator,
-  SearchStringInput: SearchStringInput,
-  User: ResolverTypeWrapper<User>,
-  Role: ResolverTypeWrapper<Role>,
-  Permission: ResolverTypeWrapper<Permission>,
-  MutationResponse: ResolversTypes['ConfigMutationResponse'] | ResolversTypes['FoodMutationResponse'],
-  ConfigMutationResponse: ResolverTypeWrapper<ConfigMutationResponse>,
-  FoodMutationResponse: ResolverTypeWrapper<FoodMutationResponse>,
-  UpdateConfigInput: UpdateConfigInput,
-  Query: ResolverTypeWrapper<{}>,
-  Mutation: ResolverTypeWrapper<{}>,
-  AdditionalEntityFields: AdditionalEntityFields,
+  FoodName: ResolverTypeWrapper<FoodName>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  Food: ResolverTypeWrapper<Food>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  FoodInput: FoodInput;
+  FoodNameInput: FoodNameInput;
+  FoodSearchInput: FoodSearchInput;
+  FoodNameSearchInput: FoodNameSearchInput;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
+  Config: ResolverTypeWrapper<Config>;
+  SearchFloatInput: SearchFloatInput;
+  ComparisonOperator: ComparisonOperator;
+  SearchStringInput: SearchStringInput;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  User: ResolverTypeWrapper<User>;
+  Role: ResolverTypeWrapper<Role>;
+  Permission: ResolverTypeWrapper<Permission>;
+  MutationResponse: ResolversTypes['ConfigMutationResponse'] | ResolversTypes['FoodMutationResponse'];
+  ConfigMutationResponse: ResolverTypeWrapper<ConfigMutationResponse>;
+  FoodMutationResponse: ResolverTypeWrapper<FoodMutationResponse>;
+  UpdateConfigInput: UpdateConfigInput;
+  Query: ResolverTypeWrapper<{}>;
+  Mutation: ResolverTypeWrapper<{}>;
+  AdditionalEntityFields: AdditionalEntityFields;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  String: Scalars['String'],
-  Boolean: Scalars['Boolean'],
-  FoodName: FoodName,
-  Food: Food,
-  ID: Scalars['ID'],
-  Float: Scalars['Float'],
-  FoodInput: FoodInput,
-  FoodNameInput: FoodNameInput,
-  FoodSearchInput: FoodSearchInput,
-  FoodNameSearchInput: FoodNameSearchInput,
-  Date: Scalars['Date'],
-  Config: Config,
-  SearchFloatInput: SearchFloatInput,
-  ComparisonOperator: ComparisonOperator,
-  SearchStringInput: SearchStringInput,
-  User: User,
-  Role: Role,
-  Permission: Permission,
-  MutationResponse: ResolversParentTypes['ConfigMutationResponse'] | ResolversParentTypes['FoodMutationResponse'],
-  ConfigMutationResponse: ConfigMutationResponse,
-  FoodMutationResponse: FoodMutationResponse,
-  UpdateConfigInput: UpdateConfigInput,
-  Query: {},
-  Mutation: {},
-  AdditionalEntityFields: AdditionalEntityFields,
+  FoodName: FoodName;
+  String: Scalars['String'];
+  Food: Food;
+  ID: Scalars['ID'];
+  Float: Scalars['Float'];
+  FoodInput: FoodInput;
+  FoodNameInput: FoodNameInput;
+  FoodSearchInput: FoodSearchInput;
+  FoodNameSearchInput: FoodNameSearchInput;
+  Date: Scalars['Date'];
+  Config: Config;
+  SearchFloatInput: SearchFloatInput;
+  SearchStringInput: SearchStringInput;
+  Boolean: Scalars['Boolean'];
+  User: User;
+  Role: Role;
+  Permission: Permission;
+  MutationResponse: ResolversParentTypes['ConfigMutationResponse'] | ResolversParentTypes['FoodMutationResponse'];
+  ConfigMutationResponse: ConfigMutationResponse;
+  FoodMutationResponse: FoodMutationResponse;
+  UpdateConfigInput: UpdateConfigInput;
+  Query: {};
+  Mutation: {};
+  AdditionalEntityFields: AdditionalEntityFields;
 }>;
 
 export type AuthDirectiveArgs = {   requires: Array<Scalars['String']>; };
@@ -511,155 +515,155 @@ export type MapDirectiveArgs = {   path: Scalars['String']; };
 export type MapDirectiveResolver<Result, Parent, ContextType = Context, Args = MapDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type FoodNameResolvers<ContextType = Context, ParentType extends ResolversParentTypes['FoodName'] = ResolversParentTypes['FoodName']> = ResolversObject<{
-  en: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  fi: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  en: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  fi: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export type FoodResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Food'] = ResolversParentTypes['Food']> = ResolversObject<{
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  name: Resolver<ResolversTypes['FoodName'], ParentType, ContextType>,
-  enerc: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fat: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  choavl: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  prot: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  alc: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  oa: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  sugoh: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  sugar: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  frus: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  gals: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  glus: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  lacs: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  mals: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  sucs: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  starch: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fibc: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fibins: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  psacncs: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fol: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  niaeq: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  nia: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  vitpyrid: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  ribf: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  thia: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  vita: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  carotens: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  vitb12: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  vitc: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  vitd: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  vite: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  vitk: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  ca: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fe: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  iod: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  k: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  mg: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  na: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  nacl: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  p: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  se: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  zn: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fafre: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fapu: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  famcis: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fasat: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fatrn: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fapun3: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  fapun6: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  f18d2cn6: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  f18d3n3: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  f20d5n3: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  f22d6n3: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  chole: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  stert: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  trp: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  foodid: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name: Resolver<ResolversTypes['FoodName'], ParentType, ContextType>;
+  enerc: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fat: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  choavl: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  prot: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  alc: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  oa: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sugoh: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sugar: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  frus: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  gals: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  glus: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lacs: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  mals: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sucs: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  starch: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fibc: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fibins: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  psacncs: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fol: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  niaeq: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  nia: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  vitpyrid: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ribf: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  thia: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  vita: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  carotens: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  vitb12: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  vitc: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  vitd: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  vite: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  vitk: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ca: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fe: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  iod: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  k: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  mg: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  na: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  nacl: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  p: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  se: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  zn: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fafre: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fapu: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  famcis: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fasat: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fatrn: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fapun3: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fapun6: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  f18d2cn6: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  f18d3n3: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  f20d5n3: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  f22d6n3: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  chole: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  stert: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  trp: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  foodid: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
-  name: 'Date'
+  name: 'Date';
 }
 
 export type ConfigResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Config'] = ResolversParentTypes['Config']> = ResolversObject<{
-  lastFineliUpdate: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  lastFineliUpdate: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  userId: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  roles: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>,
-  permissions: Resolver<Maybe<Array<ResolversTypes['Permission']>>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userId: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  roles: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
+  permissions: Resolver<Maybe<Array<ResolversTypes['Permission']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export type RoleResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Role'] = ResolversParentTypes['Role']> = ResolversObject<{
-  id: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  description: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  permissions: Resolver<Maybe<Array<ResolversTypes['Permission']>>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  id: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  permissions: Resolver<Maybe<Array<ResolversTypes['Permission']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export type PermissionResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Permission'] = ResolversParentTypes['Permission']> = ResolversObject<{
-  resourceServerIdentifier: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  permissionName: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  resourceServerName: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  description: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  resourceServerIdentifier: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  permissionName: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  resourceServerName: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export type MutationResponseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['MutationResponse'] = ResolversParentTypes['MutationResponse']> = ResolversObject<{
-  __resolveType: TypeResolveFn<'ConfigMutationResponse' | 'FoodMutationResponse', ParentType, ContextType>,
-  code: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  success: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __resolveType: TypeResolveFn<'ConfigMutationResponse' | 'FoodMutationResponse', ParentType, ContextType>;
+  code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  success: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
 export type ConfigMutationResponseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['ConfigMutationResponse'] = ResolversParentTypes['ConfigMutationResponse']> = ResolversObject<{
-  code: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  success: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  config: Resolver<Maybe<ResolversTypes['Config']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  success: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  config: Resolver<Maybe<ResolversTypes['Config']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export type FoodMutationResponseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['FoodMutationResponse'] = ResolversParentTypes['FoodMutationResponse']> = ResolversObject<{
-  code: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  success: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  food: Resolver<Maybe<ResolversTypes['Food']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  success: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  food: Resolver<Maybe<ResolversTypes['Food']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  users: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>,
-  foods: Resolver<Array<ResolversTypes['Food']>, ParentType, ContextType, RequireFields<QueryFoodsArgs, never>>,
-  food: Resolver<Maybe<ResolversTypes['Food']>, ParentType, ContextType, RequireFields<QueryFoodArgs, 'id'>>,
-  config: Resolver<ResolversTypes['Config'], ParentType, ContextType>,
+  users: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
+  foods: Resolver<Array<ResolversTypes['Food']>, ParentType, ContextType, RequireFields<QueryFoodsArgs, never>>;
+  food: Resolver<Maybe<ResolversTypes['Food']>, ParentType, ContextType, RequireFields<QueryFoodArgs, 'id'>>;
+  config: Resolver<ResolversTypes['Config'], ParentType, ContextType>;
 }>;
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  assignRoleToUser: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAssignRoleToUserArgs, 'userId' | 'roleIds'>>,
-  updateConfig: Resolver<ResolversTypes['ConfigMutationResponse'], ParentType, ContextType, RequireFields<MutationUpdateConfigArgs, 'config'>>,
-  addFood: Resolver<ResolversTypes['FoodMutationResponse'], ParentType, ContextType, RequireFields<MutationAddFoodArgs, 'food'>>,
+  assignRoleToUser: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAssignRoleToUserArgs, 'userId' | 'roleIds'>>;
+  updateConfig: Resolver<ResolversTypes['ConfigMutationResponse'], ParentType, ContextType, RequireFields<MutationUpdateConfigArgs, 'config'>>;
+  addFood: Resolver<ResolversTypes['FoodMutationResponse'], ParentType, ContextType, RequireFields<MutationAddFoodArgs, 'food'>>;
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
-  FoodName: FoodNameResolvers<ContextType>,
-  Food: FoodResolvers<ContextType>,
-  Date: GraphQLScalarType,
-  Config: ConfigResolvers<ContextType>,
-  User: UserResolvers<ContextType>,
-  Role: RoleResolvers<ContextType>,
-  Permission: PermissionResolvers<ContextType>,
-  MutationResponse: MutationResponseResolvers,
-  ConfigMutationResponse: ConfigMutationResponseResolvers<ContextType>,
-  FoodMutationResponse: FoodMutationResponseResolvers<ContextType>,
-  Query: QueryResolvers<ContextType>,
-  Mutation: MutationResolvers<ContextType>,
+  FoodName: FoodNameResolvers<ContextType>;
+  Food: FoodResolvers<ContextType>;
+  Date: GraphQLScalarType;
+  Config: ConfigResolvers<ContextType>;
+  User: UserResolvers<ContextType>;
+  Role: RoleResolvers<ContextType>;
+  Permission: PermissionResolvers<ContextType>;
+  MutationResponse: MutationResponseResolvers;
+  ConfigMutationResponse: ConfigMutationResponseResolvers<ContextType>;
+  FoodMutationResponse: FoodMutationResponseResolvers<ContextType>;
+  Query: QueryResolvers<ContextType>;
+  Mutation: MutationResolvers<ContextType>;
 }>;
 
 
@@ -669,16 +673,16 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
  */
 export type IResolvers<ContextType = Context> = Resolvers<ContextType>;
 export type DirectiveResolvers<ContextType = Context> = ResolversObject<{
-  auth: AuthDirectiveResolver<any, any, ContextType>,
-  i8n: I8nDirectiveResolver<any, any, ContextType>,
-  union: UnionDirectiveResolver<any, any, ContextType>,
-  abstractEntity: AbstractEntityDirectiveResolver<any, any, ContextType>,
-  entity: EntityDirectiveResolver<any, any, ContextType>,
-  column: ColumnDirectiveResolver<any, any, ContextType>,
-  id: IdDirectiveResolver<any, any, ContextType>,
-  link: LinkDirectiveResolver<any, any, ContextType>,
-  embedded: EmbeddedDirectiveResolver<any, any, ContextType>,
-  map: MapDirectiveResolver<any, any, ContextType>,
+  auth: AuthDirectiveResolver<any, any, ContextType>;
+  i8n: I8nDirectiveResolver<any, any, ContextType>;
+  union: UnionDirectiveResolver<any, any, ContextType>;
+  abstractEntity: AbstractEntityDirectiveResolver<any, any, ContextType>;
+  entity: EntityDirectiveResolver<any, any, ContextType>;
+  column: ColumnDirectiveResolver<any, any, ContextType>;
+  id: IdDirectiveResolver<any, any, ContextType>;
+  link: LinkDirectiveResolver<any, any, ContextType>;
+  embedded: EmbeddedDirectiveResolver<any, any, ContextType>;
+  map: MapDirectiveResolver<any, any, ContextType>;
 }>;
 
 

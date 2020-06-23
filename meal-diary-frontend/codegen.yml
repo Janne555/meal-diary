@@ -1,5 +1,5 @@
 overwrite: true
-schema: "http://backend:4000/graphql"
+schema: "../meal-diary-backend/src/graphql/schema/*.ts"
 generates:
   ./src/graphql/generated.tsx:
     documents: ./src/graphql/document.graphql

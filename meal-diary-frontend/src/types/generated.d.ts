@@ -7,127 +7,9 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
-  /** The `Upload` scalar type represents a file upload. */
-  Upload: any;
-};
-
-export type AdditionalEntityFields = {
-  path?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
 };
 
 
-export type Config = {
-  __typename?: 'Config';
-  lastFineliUpdate?: Maybe<Scalars['Date']>;
-};
-
-export type SearchFloatInput = {
-  value: Scalars['Float'];
-  comparisonOperator?: Maybe<ComparisonOperator>;
-};
-
-export enum ComparisonOperator {
-  Lt = 'LT',
-  Gt = 'GT'
-}
-
-export type SearchStringInput = {
-  value: Scalars['String'];
-  regex?: Maybe<Scalars['Boolean']>;
-  flags?: Maybe<Scalars['String']>;
-};
-
-export type User = {
-  __typename?: 'User';
-  name?: Maybe<Scalars['String']>;
-  userId: Scalars['String'];
-  roles?: Maybe<Array<Role>>;
-  permissions?: Maybe<Array<Permission>>;
-};
-
-export type Role = {
-  __typename?: 'Role';
-  id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  permissions?: Maybe<Array<Permission>>;
-};
-
-export type Permission = {
-  __typename?: 'Permission';
-  resourceServerIdentifier?: Maybe<Scalars['String']>;
-  permissionName?: Maybe<Scalars['String']>;
-  resourceServerName?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type MutationResponse = {
-  code: Scalars['String'];
-  success: Scalars['Boolean'];
-  message: Scalars['String'];
-};
-
-export type ConfigMutationResponse = MutationResponse & {
-  __typename?: 'ConfigMutationResponse';
-  code: Scalars['String'];
-  success: Scalars['Boolean'];
-  message: Scalars['String'];
-  config?: Maybe<Config>;
-};
-
-export type FoodMutationResponse = MutationResponse & {
-  __typename?: 'FoodMutationResponse';
-  code: Scalars['String'];
-  success: Scalars['Boolean'];
-  message: Scalars['String'];
-  food?: Maybe<Food>;
-};
-
-export type UpdateConfigInput = {
-  lastFineliUpdate?: Maybe<Scalars['Date']>;
-};
-
-export type Query = {
-  __typename?: 'Query';
-  users?: Maybe<Array<User>>;
-  foods: Array<Food>;
-  food?: Maybe<Food>;
-  config: Config;
-};
-
-
-export type QueryFoodsArgs = {
-  params?: Maybe<FoodSearchInput>;
-};
-
-
-export type QueryFoodArgs = {
-  id: Scalars['ID'];
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  assignRoleToUser: User;
-  updateConfig: ConfigMutationResponse;
-  addFood: FoodMutationResponse;
-};
-
-
-export type MutationAssignRoleToUserArgs = {
-  userId: Scalars['String'];
-  roleIds: Array<Scalars['String']>;
-};
-
-
-export type MutationUpdateConfigArgs = {
-  config: UpdateConfigInput;
-};
-
-
-export type MutationAddFoodArgs = {
-  food: FoodInput;
-};
 
 export type FoodName = {
   __typename?: 'FoodName';
@@ -325,11 +207,118 @@ export type FoodNameSearchInput = {
   fi?: Maybe<SearchStringInput>;
 };
 
-export enum CacheControlScope {
-  Public = 'PUBLIC',
-  Private = 'PRIVATE'
+
+export type Config = {
+  __typename?: 'Config';
+  lastFineliUpdate?: Maybe<Scalars['Date']>;
+};
+
+export type SearchFloatInput = {
+  value: Scalars['Float'];
+  comparisonOperator?: Maybe<ComparisonOperator>;
+};
+
+export enum ComparisonOperator {
+  Lt = 'LT',
+  Gt = 'GT'
 }
 
+export type SearchStringInput = {
+  value: Scalars['String'];
+  regex?: Maybe<Scalars['Boolean']>;
+  flags?: Maybe<Scalars['String']>;
+};
+
+export type User = {
+  __typename?: 'User';
+  name?: Maybe<Scalars['String']>;
+  userId: Scalars['String'];
+  roles?: Maybe<Array<Role>>;
+  permissions?: Maybe<Array<Permission>>;
+};
+
+export type Role = {
+  __typename?: 'Role';
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  permissions?: Maybe<Array<Permission>>;
+};
+
+export type Permission = {
+  __typename?: 'Permission';
+  resourceServerIdentifier?: Maybe<Scalars['String']>;
+  permissionName?: Maybe<Scalars['String']>;
+  resourceServerName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type MutationResponse = {
+  code: Scalars['String'];
+  success: Scalars['Boolean'];
+  message: Scalars['String'];
+};
+
+export type ConfigMutationResponse = MutationResponse & {
+  __typename?: 'ConfigMutationResponse';
+  code: Scalars['String'];
+  success: Scalars['Boolean'];
+  message: Scalars['String'];
+  config?: Maybe<Config>;
+};
+
+export type FoodMutationResponse = MutationResponse & {
+  __typename?: 'FoodMutationResponse';
+  code: Scalars['String'];
+  success: Scalars['Boolean'];
+  message: Scalars['String'];
+  food?: Maybe<Food>;
+};
+
+export type UpdateConfigInput = {
+  lastFineliUpdate?: Maybe<Scalars['Date']>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  users?: Maybe<Array<User>>;
+  foods: Array<Food>;
+  food?: Maybe<Food>;
+  config: Config;
+};
+
+
+export type QueryFoodsArgs = {
+  params?: Maybe<FoodSearchInput>;
+};
+
+
+export type QueryFoodArgs = {
+  id: Scalars['ID'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  assignRoleToUser: User;
+  updateConfig: ConfigMutationResponse;
+  addFood: FoodMutationResponse;
+};
+
+
+export type MutationAssignRoleToUserArgs = {
+  userId: Scalars['String'];
+  roleIds: Array<Scalars['String']>;
+};
+
+
+export type MutationUpdateConfigArgs = {
+  config: UpdateConfigInput;
+};
+
+
+export type MutationAddFoodArgs = {
+  food: FoodInput;
+};
 
 export type GetFoodNamesQueryVariables = {};
 
