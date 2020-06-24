@@ -19,7 +19,8 @@ const client = new ApolloClient({
         }
       })
     }
-  }
+  },
+  uri: `${window.location.origin}/api/graphql`
 })
 
 ReactDOM.render(

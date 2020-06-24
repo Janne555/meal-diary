@@ -1,0 +1,41 @@
+name: Frontend Staging
+
+on:
+  push:
+    branches: ["staging"]
+    paths:
+      - "meal-diary-frontend/**"
+      - ".github/workflows/frontend-staging.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-frontend
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('meal-diary-frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: NPM install
+        run: npm install --production
+        working-directory: meal-diary-frontend
+      - name: Create production version
+        run: npm run build
+        working-directory: meal-diary-frontend
+      - name: Install Heroku static CLI
+        run: heroku plugins:install heroku-cli-static
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - name: Deploy
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku static:deploy -a meal-diary-frontend-staging
+        working-directory: meal-diary-frontend
