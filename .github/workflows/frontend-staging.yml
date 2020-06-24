@@ -28,6 +28,7 @@ jobs:
         working-directory: meal-diary-frontend
       - name: Create production version
         run: npm run build
+        working-directory: meal-diary-frontend
       - name: Deploy
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
