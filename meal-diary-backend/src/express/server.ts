@@ -5,6 +5,6 @@ import graphqlServer from '../graphql'
 const app = express()
 
 app.use(checkJwt)
-graphqlServer.applyMiddleware({ app, path: "/api" })
+graphqlServer.applyMiddleware({ app })
 
 export { app }
