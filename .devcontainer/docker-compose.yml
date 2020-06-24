@@ -18,6 +18,8 @@ services:
       dockerfile: Dockerfile
       args:
         VARIANT: 12
+    environment:
+      - CYPRESS_INSTALL_BINARY=0
   
     volumes:
       - ..:/workspace:cached
