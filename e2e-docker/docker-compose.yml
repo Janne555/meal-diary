@@ -31,6 +31,10 @@ services:
     build:
       context: ../meal-diary-frontend
       dockerfile: ../e2e-docker/Dockerfile.frontend
+    environment:
+      - REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.REACT_APP_AUTH0_CLIENT_ID }}
+      - REACT_APP_AUTH0_DOMAIN: ${{ secrets.REACT_APP_AUTH0_DOMAIN }}
+      - REACT_APP_AUTH0_AUDIENCE: ${{ secrets.REACT_APP_AUTH0_AUDIENCE }}
 
     depends_on:
       - backend
@@ -44,7 +48,3 @@ services:
     working_dir: /e2e
     volumes:
       - ../meal-diary-frontend/:/e2e
-
-volumes:
-  backend_node_modules:
-  client_node_modules:
