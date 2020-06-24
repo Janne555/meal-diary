@@ -1,4 +1,4 @@
-name: Frontend PR
+name: E2E tests
 
 on:
   pull_request:
