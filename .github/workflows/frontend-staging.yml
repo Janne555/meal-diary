@@ -30,6 +30,10 @@ jobs:
       - name: Create production version
         run: npm run build
         working-directory: meal-diary-frontend
+      - name: Install Heroku static CLI
+        run: heroku plugins:install heroku-cli-static
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       - name: Deploy
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
