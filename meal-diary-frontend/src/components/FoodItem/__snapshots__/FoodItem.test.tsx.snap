@@ -16,6 +16,7 @@ exports[`<FoodItem /> should match snapshot 1`] = `
       >
         <div>
           <img
+            alt="foo"
             src="images/fuel.svg"
           />
           <h1
@@ -35,6 +36,7 @@ exports[`<FoodItem /> should match snapshot 1`] = `
       >
         <div>
           <img
+            alt="foo"
             src="images/fuel.svg"
           />
           <h1
@@ -54,6 +56,7 @@ exports[`<FoodItem /> should match snapshot 1`] = `
       >
         <div>
           <img
+            alt="foo"
             src="images/fuel.svg"
           />
           <h1
@@ -73,6 +76,7 @@ exports[`<FoodItem /> should match snapshot 1`] = `
       >
         <div>
           <img
+            alt="foo"
             src="images/fuel.svg"
           />
           <h1
@@ -92,6 +96,7 @@ exports[`<FoodItem /> should match snapshot 1`] = `
       >
         <div>
           <img
+            alt="foo"
             src="images/fuel.svg"
           />
           <h1
@@ -111,6 +116,7 @@ exports[`<FoodItem /> should match snapshot 1`] = `
       >
         <div>
           <img
+            alt="foo"
             src="images/fuel.svg"
           />
           <h1
@@ -130,6 +136,7 @@ exports[`<FoodItem /> should match snapshot 1`] = `
       >
         <div>
           <img
+            alt="foo"
             src="images/fuel.svg"
           />
           <h1
