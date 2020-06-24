@@ -27,9 +27,6 @@ jobs:
       - name: Build production app
         run: npm run build
         working-directory: meal-diary-frontend
-      - name: Run tests
-        run: npm run test:ci
-        working-directory: meal-diary-frontend
       - name: Run e2e tests
         env:
           AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID}}
