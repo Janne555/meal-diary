@@ -22,7 +22,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: NPM install
-        run: npm install
+        run: npm install --production
         working-directory: meal-diary-frontend
       - name: Build production app
         run: npm run build

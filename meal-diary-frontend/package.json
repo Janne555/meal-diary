@@ -20,7 +20,16 @@
     "react-scripts": "3.4.1",
     "react-window": "^1.8.5",
     "typescript": "^3.7.5",
-    "uninstall": "0.0.0"
+    "uninstall": "0.0.0",
+    "@types/fuse": "^2.6.0",
+    "@types/jest": "^24.9.1",
+    "@types/lodash": "^4.14.155",
+    "@types/match-sorter": "^4.0.0",
+    "@types/node": "^12.12.40",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-window": "^1.8.2",
+    "@types/web-bluetooth": "0.0.6"
   },
   "scripts": {
     "preinstall": "CYPRESS_INSTALL_BINARY=0",
@@ -56,15 +65,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "@types/fuse": "^2.6.0",
-    "@types/jest": "^24.9.1",
-    "@types/lodash": "^4.14.155",
-    "@types/match-sorter": "^4.0.0",
-    "@types/node": "^12.12.40",
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-window": "^1.8.2",
-    "@types/web-bluetooth": "0.0.6",
     "cypress": "^4.9.0"
   }
 }
