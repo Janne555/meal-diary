@@ -5,6 +5,7 @@ on:
     branches: ["staging"]
     paths:
       - "meal-diary-backend/**"
+      - ".github/workflows/backend-staging.yml"
 
 jobs:
   deploy:
