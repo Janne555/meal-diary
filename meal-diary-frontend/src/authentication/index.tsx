@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import createAuth0Client, { Auth0Client, Auth0ClientOptions, PopupLoginOptions, RedirectLoginOptions } from "@auth0/auth0-spa-js";
+import createAuth0Client, { Auth0Client, PopupLoginOptions, RedirectLoginOptions } from "@auth0/auth0-spa-js";
 
 class Authentication {
   auth0Client?: Auth0Client
@@ -98,7 +98,7 @@ function Auth0Provider({ children, onRedirectCallback = DEFAULT_REDIRECT_CALLBAC
       }
       setLoading(false)
     })()
-  }, [])
+  }, [onRedirectCallback])
 
   async function loginWithPopup(params: PopupLoginOptions = {}) {
     const { auth0Client } = auth

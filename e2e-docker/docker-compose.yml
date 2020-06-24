@@ -1,0 +1,50 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+
+  backend:
+    build:
+      context: ../meal-diary-backend
+      dockerfile: ../e2e-docker/Dockerfile.backend
+    environment:
+      - AUTH0_CLIENT_ID
+      - AUTH0_DOMAIN
+      - AUTH0_CLIENT_SECRET
+      - AUTH0_AUDIENCE
+      - AUTH0_USER_AUDIENCE
+      - AUTH0_TEST_AUDIENCE
+      - AUTH0_TEST_TOKEN_URL
+      - AUTH0_TEST_CLIENT_ID
+      - AUTH0_TEST_CLIENT_SECRET
+      - AUTH0_TEST_GRANT_TYPE
+      - MONGO_URI=mongodb://localhost:27017/<dbname>
+      - APP_NAME=test
+      - RUN_FINELI_TASK_ON_START=false
+      - NODE_ENV=e2e
+      - PORT=4000
+
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ../meal-diary-frontend
+      dockerfile: ../e2e-docker/Dockerfile.frontend
+
+    depends_on:
+      - backend
+
+  cypress:
+    image: cypress/included:4.9.0
+    depends_on:
+      - frontend
+    environment:
+      - CYPRESS_baseUrl=http://frontend
+    working_dir: /e2e
+    volumes:
+      - ../meal-diary-frontend/:/e2e
+
+volumes:
+  backend_node_modules:
+  client_node_modules:
