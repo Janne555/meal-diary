@@ -18,6 +18,7 @@ function App() {
 
   return (
     <div className="App">
+      <p>hello</p>
       <Login />
       {error && <span>{error.message}</span>}
       <p>Weight: {weight}</p>
