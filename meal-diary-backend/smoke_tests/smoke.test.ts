@@ -42,7 +42,7 @@ describe('smoke test', () => {
 
   it('should get foods', async () => {
     const res = await supertest(app)
-      .post("/graphql")
+      .post("/api/graphql")
       .set('Authorization', `Bearer ${token}`)
       .send({
         query: `
