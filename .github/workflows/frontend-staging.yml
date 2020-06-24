@@ -7,7 +7,7 @@ on:
       - "meal-diary-frontend/**"
 
 jobs:
-  unit_tests:
+  deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
