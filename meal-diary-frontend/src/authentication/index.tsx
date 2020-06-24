@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client, { Auth0Client, PopupLoginOptions, RedirectLoginOptions } from "@auth0/auth0-spa-js";
+import { env } from '../constants'
 
 class Authentication {
   auth0Client?: Auth0Client
@@ -13,9 +14,9 @@ class Authentication {
 
   async init(resolve: () => void) {
     this.auth0Client = await createAuth0Client({
-      client_id: "Ne9o6YPmIEsNUG2DcnAsN7v3zIIt8EwY",
-      domain: "dev-4sgra2h5.eu.auth0.com",
-      audience: "localhost",
+      client_id: env.REACT_APP_AUTH0_CLIENT_ID,
+      domain: env.REACT_APP_AUTH0_DOMAIN,
+      audience: env.REACT_APP_AUTH0_AUDIENCE,
       redirect_uri: window.location.origin
     })
     resolve()

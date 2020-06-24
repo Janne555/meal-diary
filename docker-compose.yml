@@ -1,35 +1,35 @@
 version: "3"
 services:
-  backend:
-    build:
-      context: ./meal-diary-backend
-      dockerfile: .devcontainer/Dockerfile
-
-    volumes:
-      - ./meal-diary-backend:/workspace:cached
-      - backend_node_modules:/workspace/node_modules
-
-    command: sleep infinity
-
-  frontend:
-    build:
-      context: ./meal-diary-frontend
-      dockerfile: .devcontainer/Dockerfile
-    environment:
-      - CYPRESS_INSTALL_BINARY=0
-
-    volumes:
-      - ./meal-diary-frontend:/workspace:cached
-      - client_node_modules:/workspace/node_modules
-
-    command: sleep infinity
-
   mongo:
     image: mongo
     restart: unless-stopped
-    volumes:
-      - /data/db
 
-volumes:
-  backend_node_modules:
-  client_node_modules:
+  backend:
+    build:
+      context: ./meal-diary-backend
+      dockerfile: Dockerfile
+    environment:
+      - AUTH0_CLIENT_ID
+      - AUTH0_DOMAIN
+      - AUTH0_CLIENT_SECRET
+      - AUTH0_AUDIENCE
+      - AUTH0_USER_AUDIENCE
+      - AUTH0_TEST_AUDIENCE
+      - AUTH0_TEST_TOKEN_URL
+      - AUTH0_TEST_CLIENT_ID
+      - AUTH0_TEST_CLIENT_SECRET
+      - AUTH0_TEST_GRANT_TYPE
+      - MONGO_URI=mongodb://mongo:27017/<dbname>
+      - APP_NAME=local-prod
+      - RUN_FINELI_TASK_ON_START=false
+      - NODE_ENV=production
+      - PORT=4000
+
+  frontend:
+    build:
+      context: meal-diary-frontend
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:5000
+    environment: 
+      - NODE_ENV=production
