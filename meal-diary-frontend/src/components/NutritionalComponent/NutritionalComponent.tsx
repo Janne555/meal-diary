@@ -12,7 +12,7 @@ export default function NutritionalComponent({ name, value }: Props) {
   return (
     <Card className="nutritional-component">
       <div>
-        <img src="images/fuel.svg" />
+        <img src="images/fuel.svg" alt="foo" />
         <Typography component="h1" >{name}</Typography>
         <Typography>{value}</Typography>
       </div>

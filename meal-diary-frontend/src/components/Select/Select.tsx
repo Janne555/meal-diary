@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete, { AutocompleteRenderGroupParams, createFilterOptions } from '@material-ui/lab/Autocomplete';
+import Autocomplete, { AutocompleteRenderGroupParams } from '@material-ui/lab/Autocomplete';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
@@ -112,8 +112,8 @@ function Select<TOption>({ options, getLabel, onChange }: Props<TOption>) {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [inputValue, setInputValue] = useState("")
-  const [loading, setLoading] = useState(true)
-  const [filteredOptions, setFilteredOptions] = useState(options)
+  const [loading] = useState(true)
+  const [, setFilteredOptions] = useState(options)
   const filterOptions = useCallback(throttle(
     async (searchValue: string, options: TOption[]) => {
       setFilteredOptions(matchSorter(options, searchValue, {
