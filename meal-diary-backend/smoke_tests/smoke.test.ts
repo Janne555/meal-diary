@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import { app } from '../src/express/server'
+import { app } from '../src/express'
 import mongoose from 'mongoose'
 import { env } from '../src/constants'
 import { FoodDataSource } from '../src/datasources'
@@ -17,11 +17,9 @@ afterAll(async () => {
   await Promise.all(mongoose.connections.map(conn => conn.close()))
 })
 
-var ds
-
 describe('smoke test', () => {
   beforeEach(async () => {
-    ds = new FoodDataSource({ sub: "Fineli" })
+    const ds = new FoodDataSource({ sub: "Fineli" })
     await ds.addFood({
       name: { fi: "munkki", en: "donut" }
     })

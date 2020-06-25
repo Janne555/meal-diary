@@ -8,7 +8,8 @@ const envVarNames = [
   "AUTH0_USER_AUDIENCE",
   "NODE_ENV",
   "RUN_FINELI_TASK_ON_START",
-  "PORT"
+  "PORT",
+  "AUTH_STRATEGY"
 ] as const
 
 type EnvVarName = (typeof envVarNames)[number]
