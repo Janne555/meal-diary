@@ -28,9 +28,9 @@ jobs:
         working-directory: meal-diary-frontend
       - name: Run tests
         env:
-          REACT_APP_AUTH0_CLIENT_ID: "undefined"
-          REACT_APP_AUTH0_DOMAIN: "undefined"
-          REACT_APP_AUDIENCE: "undefined"
+          REACT_APP_AUTH0_CLIENT_ID: undefined
+          REACT_APP_AUTH0_DOMAIN: undefined
+          REACT_APP_AUDIENCE: github_actions
         run: npm run test:ci
         working-directory: meal-diary-frontend
   compile:

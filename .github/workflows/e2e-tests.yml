@@ -28,7 +28,7 @@ jobs:
         env:
           REACT_APP_AUTH0_CLIENT_ID: ${{secrets.REACT_APP_AUTH0_CLIENT_ID}}
           REACT_APP_AUTH0_DOMAIN: ${{secrets.REACT_APP_AUTH0_DOMAIN}}
-          REACT_APP_AUTH0_AUDIENCE: ${{secrets.AUDIENCE}}
+          REACT_APP_AUDIENCE: github_actions
         run: npm run build
         working-directory: meal-diary-frontend
       - name: Run e2e tests
@@ -36,5 +36,5 @@ jobs:
           AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID}}
           AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN}}
           AUTH0_CLIENT_SECRET: ${{secrets.AUTH0_CLIENT_SECRET}}
-          AUDIENCE: ${{secrets.AUDIENCE}}
+          AUDIENCE: github_actions
         run: docker-compose -f ./e2e-docker/docker-compose.yml up --exit-code-from cypress
