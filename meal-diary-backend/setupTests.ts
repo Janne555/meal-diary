@@ -1,21 +1,41 @@
 import dotenv from 'dotenv'
-import fetch from 'node-fetch'
+import jwt from 'jsonwebtoken'
+import { Strategy, ExtractJwt } from 'passport-jwt'
+import passport from 'passport'
+import { Token } from './src/types'
+
+/**
+ * Set default environment variables
+ */
+process.env.APP_NAME = "test"
+process.env.AUTH_STRATEGY = "local"
+process.env.AUTH0_CLIENT_ID = "undefined"
+process.env.AUTH0_DOMAIN = "undefined"
+process.env.AUTH0_CLIENT_SECRET = "undefined"
+process.env.AUDIENCE = "test"
 
 dotenv.config({ path: "./test.env" })
 
-let token: string | undefined = undefined
+/**
+ * Create a token for test use and add a local jwt strategy to passport
+ */
 
-beforeAll(async () => {
-  const payload = JSON.stringify({
-    client_id: process.env.AUTH0_TEST_CLIENT_ID,
-    client_secret: process.env.AUTH0_TEST_CLIENT_SECRET,
-    audience: process.env.AUTH0_TEST_AUDIENCE,
-    grant_type: process.env.AUTH0_TEST_GRANT_TYPE
-  })
+const testSecret = "testsecret"
 
-  const res = await fetch(`${process.env.AUTH0_TEST_TOKEN_URL}/oauth/token`, { method: 'POST', body: payload, headers: { 'Content-Type': 'application/json' } })
-  const body = await res.json()
-  token = body.access_token
+const testUser: Token = {
+  sub: "tester",
+  permissions: []
+}
+
+const token = jwt.sign(testUser, testSecret)
+
+const localJWTStrategy = new Strategy({
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: testSecret
+}, (jwtPayload, done) => {
+  return done(null, jwtPayload)
 })
 
-export { token }
+passport.use('local-jwt', localJWTStrategy)
+
+export { token, testSecret, testUser }
