@@ -1,3 +1,4 @@
 *.env
 DockerFile
 node_modules
+*.pem
