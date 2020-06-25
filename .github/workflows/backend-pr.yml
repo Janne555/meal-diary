@@ -44,6 +44,7 @@ jobs:
           APP_NAME: test
           RUN_FINELI_TASK_ON_START: false
           PORT: 4000
+          AUTH_STRATEGY: auth0
         run: npm run test:ci
         working-directory: meal-diary-backend
   compile:
