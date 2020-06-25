@@ -12,16 +12,16 @@ const graphqlServer = new ApolloServer({
   typeDefs: [DIRECTIVES].concat(typeDefs), resolvers: { ...resolvers }, context: ({ req }) => {
     const userToken = ((): UserToken | undefined => {
       if (isToken(req.user)) {
-        const user: UserToken = req.user as any
-        user.hasRoles = function (roles: string[]): boolean {
-          return roles.every(role => this.permissions.includes(role))
+        return {
+          ...req.user,
+          hasRoles(roles: string[]): boolean {
+            return roles.every(role => this.permissions.includes(role))
+          }
         }
-        return user
       } else {
         return undefined
       }
     })()
-
     if (userToken) {
       return {
         userDataSource: new UserDataSource(),
