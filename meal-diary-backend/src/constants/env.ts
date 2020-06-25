@@ -6,7 +6,8 @@ const envVarNames = [
   "APP_NAME",
   "AUDIENCE",
   "PORT",
-  "AUTH_STRATEGY"
+  "AUTH_STRATEGY",
+  "FRONTEND_URL"
 ] as const
 
 
@@ -28,7 +29,7 @@ const env = (() => {
       } else if (defaultValue) {
         return [envVarName, defaultValue]
       } else {
-        throw Error(`Missing env variable ${name}`)
+        throw Error(`Missing env variable ${envVarName}`)
       }
     })
 
