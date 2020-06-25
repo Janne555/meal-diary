@@ -12,7 +12,7 @@ const auth0JWTStrategy = new Strategy({
     jwksUri: `https://${env.AUTH0_DOMAIN}/.well-known/jwks.json`
   }),
   audience: env.AUDIENCE,
-  issuer: `https://${env.AUTH0_DOMAIN}/`
+  issuer: `https://${env.AUTH0_DOMAIN}/`,
 }, (jwtPayload, done) => {
   return done(null, jwtPayload)
 })
@@ -21,12 +21,9 @@ const auth0Strategy = new Auht0Strategy({
   domain: env.AUTH0_DOMAIN,
   clientID: env.AUTH0_CLIENT_ID,
   clientSecret: env.AUTH0_CLIENT_SECRET,
-  callbackURL: '/callback',
-  state: false
+  callbackURL: `${env.FRONTEND_URL}/callback`
 }, (accessToken, refreshToken, extraParams, profile, done) => {
-  return done(null, profile)
+  return done(null, { ...profile, accessToken })
 })
-
-
 
 export { auth0JWTStrategy, auth0Strategy }

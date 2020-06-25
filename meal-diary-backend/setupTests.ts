@@ -13,6 +13,7 @@ process.env.AUTH0_CLIENT_ID = "undefined"
 process.env.AUTH0_DOMAIN = "undefined"
 process.env.AUTH0_CLIENT_SECRET = "undefined"
 process.env.AUDIENCE = "test"
+process.env.FRONTEND_URL = "undefined"
 
 dotenv.config({ path: "./test.env" })
 

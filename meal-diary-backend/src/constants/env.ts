@@ -6,7 +6,8 @@ const envVarNames = [
   "APP_NAME",
   "AUDIENCE",
   "PORT",
-  "AUTH_STRATEGY"
+  "AUTH_STRATEGY",
+  "FRONTEND_URL"
 ] as const
 
 

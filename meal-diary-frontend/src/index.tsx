@@ -34,6 +34,13 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+const authCookie = document.cookie.split(";").find(c => c.trim().startsWith("auth-token="))
+
+if (authCookie) {
+  console.log(authCookie)
+  document.cookie = `auth-token=;expires=${new Date().toUTCString()}`
+}
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
