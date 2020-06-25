@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server-express";
 import { DIRECTIVES } from "@graphql-codegen/typescript-mongodb";
-import { Context, UserToken } from "../types";
+import { UserToken } from "../types";
 import { AuthDirective } from "./directives";
 import resolvers from "./resolvers";
 import typeDefs from './schema';
@@ -9,10 +9,10 @@ import { UserDataSource, FoodDataSource } from "../datasources";
 import ConfigDataSource from "../datasources/configDataSource";
 
 const graphqlServer = new ApolloServer({
-  typeDefs: [DIRECTIVES].concat(typeDefs) as any, resolvers: { ...resolvers }, context: ({ req }) => {
+  typeDefs: [DIRECTIVES].concat(typeDefs), resolvers: { ...resolvers }, context: ({ req }) => {
     const userToken = ((): UserToken | undefined => {
-      if (isToken((req as any).user)) {
-        const user: UserToken = (req as any).user
+      if (isToken(req.user)) {
+        const user: UserToken = req.user as any
         user.hasRoles = function (roles: string[]): boolean {
           return roles.every(role => this.permissions.includes(role))
         }

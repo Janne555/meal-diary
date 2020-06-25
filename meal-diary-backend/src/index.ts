@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { env } from './constants'
-import { app } from './express/server'
+import { app } from './express'
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
