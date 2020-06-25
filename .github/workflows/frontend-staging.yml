@@ -31,7 +31,7 @@ jobs:
         env:
           REACT_APP_AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID_PROD }}
           REACT_APP_AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN }}
-          REACT_APP_AUDIENCE: ${{secrets.AUDIENCE_PROD }}
+          REACT_APP_AUDIENCE: ${{secrets.AUDIENCE_STAGING }}
         run: npm run build
         working-directory: meal-diary-frontend
       - name: Install Heroku static CLI
