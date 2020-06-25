@@ -16,7 +16,7 @@ class Authentication {
     this.auth0Client = await createAuth0Client({
       client_id: env.REACT_APP_AUTH0_CLIENT_ID,
       domain: env.REACT_APP_AUTH0_DOMAIN,
-      audience: env.REACT_APP_AUTH0_AUDIENCE,
+      audience: env.REACT_APP_AUDIENCE,
       redirect_uri: window.location.origin
     })
     resolve()

@@ -1,6 +1,6 @@
 import { Token } from "../types"
 
-function isNonNillObject(obj: unknown): obj is object {
+function isNonNillObject(obj: unknown): obj is Record<string, unknown> {
   return typeof obj === "object" && obj != null
 }
 
@@ -9,7 +9,11 @@ function isToken(obj: unknown): obj is Token {
     return false
   }
 
-  const { permissions } = obj as Partial<Token>
+  const { permissions, sub } = obj as Partial<Token>
+
+  if (!sub) {
+    return false
+  }
 
   if (permissions instanceof Array) {
     return permissions.every(permission => typeof permission === "string" && permission != null)

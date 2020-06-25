@@ -9,7 +9,7 @@ const auth0 = new Auth0.ManagementClient({
   clientId: env.AUTH0_CLIENT_ID,
   clientSecret: env.AUTH0_CLIENT_SECRET,
   scope: 'read:users read:roles',
-  audience: env.AUTH0_AUDIENCE
+  audience: env.AUDIENCE
 })
 
 class UserDataSource implements DataSource.IUserDataSource {
