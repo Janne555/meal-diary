@@ -30,7 +30,7 @@ jobs:
       - name: Create production version
         env:
           REACT_APP_AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID_PROD }}
-          REACT_APP_AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN_PROD }}
+          REACT_APP_AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN }}
           REACT_APP_AUTH0_AUDIENCE: ${{secrets.AUDIENCE_PROD }}
         run: npm run build
         working-directory: meal-diary-frontend
