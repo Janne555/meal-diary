@@ -61,6 +61,7 @@
     "graphql-import": "^1.0.2",
     "iconv-lite": "^0.5.1",
     "io-ts": "^2.2.3",
+    "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.8.0",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.15",

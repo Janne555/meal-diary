@@ -11,7 +11,7 @@ const auth0JWTStrategy = new Strategy({
     jwksRequestsPerMinute: 5,
     jwksUri: `https://${env.AUTH0_DOMAIN}/.well-known/jwks.json`
   }),
-  audience: env.AUTH0_USER_AUDIENCE,
+  audience: env.AUDIENCE,
   issuer: `https://${env.AUTH0_DOMAIN}/`
 }, (jwtPayload, done) => {
   return done(null, jwtPayload)
