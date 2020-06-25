@@ -3,7 +3,8 @@ import { app } from '../src/express'
 import mongoose from 'mongoose'
 import { env } from '../src/constants'
 import { FoodDataSource } from '../src/datasources'
-import { token } from '../setupTests'
+import { token, testSecret, testUser } from '../setupTests'
+import jwt from 'jsonwebtoken'
 
 beforeAll(async () => {
   mongoose.set('useNewUrlParser', true)
@@ -32,7 +33,7 @@ describe('smoke test', () => {
         try {
           await collection.drop()
         } catch (error) {
-          console.error(error)
+          // console.error(error)
         }
       })
     )
@@ -67,4 +68,52 @@ describe('smoke test', () => {
 
     expect(res.status).toEqual(200)
   });
+
+  describe('without permissions', () => {
+    it('should fail to get config', async () => {
+      const res = await supertest(app)
+        .post("/graphql")
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          query: `
+          query {
+            config {
+              lastFineliUpdate
+            }
+          }
+      `})
+
+      expect(res.body.data).toBeNull()
+      expect(res.body.errors[0].message).toEqual("Not authorized. Action requires permissions read:config")
+      expect(res.status).toEqual(200)
+    });
+  });
+
+  describe('with permissions', () => {
+    const tokenWithPermissions = jwt.sign({ ...testUser, permissions: ["read:config"] }, testSecret)
+
+    it('should get config', async () => {
+      const res = await supertest(app)
+        .post("/graphql")
+        .set('Authorization', `Bearer ${tokenWithPermissions}`)
+        .send({
+          query: `
+          query {
+            config {
+              lastFineliUpdate
+            }
+          }
+      `})
+
+      expect(res.body).toEqual({
+        data: {
+          config: {
+            lastFineliUpdate: null
+          }
+        }
+      })
+      expect(res.status).toEqual(200)
+    });
+  });
+
 });
