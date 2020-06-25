@@ -28,7 +28,7 @@ const env = (() => {
       } else if (defaultValue) {
         return [envVarName, defaultValue]
       } else {
-        throw Error(`Missing env variable ${name}`)
+        throw Error(`Missing env variable ${envVarName}`)
       }
     })
 
