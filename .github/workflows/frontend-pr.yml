@@ -30,7 +30,7 @@ jobs:
         env:
           REACT_APP_AUTH0_CLIENT_ID: "undefined"
           REACT_APP_AUTH0_DOMAIN: "undefined"
-          REACT_APP_AUTH0_AUDIENCE: "undefined"
+          REACT_APP_AUDIENCE: "undefined"
         run: npm run test:ci
         working-directory: meal-diary-frontend
   compile:

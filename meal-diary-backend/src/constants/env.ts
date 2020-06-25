@@ -4,23 +4,29 @@ const envVarNames = [
   "AUTH0_CLIENT_SECRET",
   "MONGO_URI",
   "APP_NAME",
-  "AUTH0_AUDIENCE",
-  "AUTH0_USER_AUDIENCE",
-  "NODE_ENV",
-  "RUN_FINELI_TASK_ON_START",
+  "AUDIENCE",
   "PORT",
   "AUTH_STRATEGY"
 ] as const
 
+
 type EnvVarName = (typeof envVarNames)[number]
+
+
+const defaults: Partial<Record<EnvVarName, string>> = {
+  PORT: "4000"
+}
 
 const env = (() => {
   const entries = envVarNames
-    .map(envVarName => [envVarName, process.env[envVarName]])
-    .filter((entry): entry is [EnvVarName, string] => {
-      const [name, envVar] = entry
-      if (envVar != null) {
-        return true
+    .map((envVarName): [EnvVarName, string] => {
+      const value = process.env[envVarName]
+      const defaultValue = defaults[envVarName]
+
+      if (value) {
+        return [envVarName, value]
+      } else if (defaultValue) {
+        return [envVarName, defaultValue]
       } else {
         throw Error(`Missing env variable ${name}`)
       }
