@@ -24,23 +24,9 @@ The easiest way to include the following environment variables is to create the 
 AUTH0_CLIENT_ID=
 AUTH0_DOMAIN=
 AUTH0_CLIENT_SECRET=
-AUTH0_USER_AUDIENCE=
-AUTH0_AUDIENCE=
+AUDIENCE=
 MONGO_URI=
 APP_NAME=
-RUN_FINELI_TASK_ON_START=true|false
-PORT=
-```
-
-#### Additional environment variables required for testing
-These will not throw an error but may cause tests to fail
-
-```shell
-AUTH0_TEST_TOKEN_URL=
-AUTH0_TEST_CLIENT_ID=
-AUTH0_TEST_CLIENT_SECRET=
-AUTH0_TEST_AUDIENCE=
-AUTH0_TEST_GRANT_TYPE=
 ```
 
 ### Frontend
