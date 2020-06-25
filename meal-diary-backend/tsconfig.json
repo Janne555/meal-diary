@@ -3,14 +3,14 @@
     "target": "ES2019",
     "module": "commonjs",
     "outDir": "./build",
-    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
-    "src/**/*.test.ts",
-    "smoke_tests/**/*",
-    "./setupTests.ts"
+    "src/**/*.test.ts"
   ]
 }
