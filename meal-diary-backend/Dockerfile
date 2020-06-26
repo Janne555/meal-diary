@@ -10,4 +10,6 @@ RUN npm install
 
 ADD . /app
 
+RUN tsc
+
 CMD "npm" "run" "start:prod"
