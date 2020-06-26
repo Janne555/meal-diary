@@ -18,6 +18,7 @@ db.once('open', function () {
 })
 
 if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
+  console.log("using secure server")
   const key = fs.readFileSync('./key.pem')
   const cert = fs.readFileSync('./cert.pem')
   const server = https.createServer({ key, cert }, app)
