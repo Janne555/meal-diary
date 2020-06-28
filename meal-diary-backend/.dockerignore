@@ -2,3 +2,5 @@
 DockerFile
 node_modules
 *.pem
+*.key
+*.csr

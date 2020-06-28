@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import { env } from './constants'
 import { app } from './express'
 import https from 'https'
+import http from 'http'
 import fs from 'fs'
 
 mongoose.set('useNewUrlParser', true);
@@ -17,16 +18,17 @@ db.once('open', function () {
   console.log("mongodb connection established")
 })
 
-if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
-  const key = fs.readFileSync('./key.pem')
-  const cert = fs.readFileSync('./cert.pem')
-  const server = https.createServer({ key, cert }, app)
+const server = (() => {
+  if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
+    console.log("using secure server")
+    const key = fs.readFileSync('./private.key')
+    const cert = fs.readFileSync('./cert.csr')
+    return https.createServer({ key, cert, }, app)
+  } else {
+    return http.createServer(app)
+  }
+})()
 
-  const listener = server.listen(Number(env.PORT), () => {
-    console.log(`🚀 Server listening at ${JSON.stringify(listener.address())}`)
-  })
-} else {
-  const listener = app.listen(Number(env.PORT), () => {
-    console.log(`🚀 Server listening at ${JSON.stringify(listener.address())}`)
-  })
-}
+const listener = server.listen(Number(env.PORT), () => {
+  console.log(`🚀 Server listening at ${JSON.stringify(listener.address())}`)
+})

@@ -7,7 +7,8 @@ const envVarNames = [
   "AUDIENCE",
   "PORT",
   "AUTH_STRATEGY",
-  "FRONTEND_URL"
+  "FRONTEND_URL",
+  "TRUST_PROXY"
 ] as const
 
 
@@ -15,7 +16,8 @@ type EnvVarName = (typeof envVarNames)[number]
 
 
 const defaults: Partial<Record<EnvVarName, string>> = {
-  PORT: "4000"
+  PORT: "4000",
+  TRUST_PROXY: "false"
 }
 
 const env = (() => {
