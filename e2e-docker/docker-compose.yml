@@ -6,7 +6,7 @@ services:
   backend:
     build:
       context: ../meal-diary-backend
-      dockerfile: ../e2e-docker/Dockerfile.backend
+      dockerfile: Dockerfile
     environment:
       - AUTH0_CLIENT_ID
       - AUTH0_DOMAIN
