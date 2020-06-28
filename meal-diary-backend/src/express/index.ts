@@ -36,6 +36,15 @@ app.use("/graphql", (req, res, next) => {
   })(req, res, next)
 })
 
+
 graphqlServer.applyMiddleware({ app })
+
+/**
+ * Heroku stops ssl traffic and uses http to communicate with the dyno (this server)
+ * so we need to trust the proxy inorder to get secure cookies to work
+ */
+if (env.TRUST_PROXY) {
+  app.set('trust proxy', true)
+}
 
 export { app }
